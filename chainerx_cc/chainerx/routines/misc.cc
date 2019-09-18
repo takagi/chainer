@@ -243,4 +243,13 @@ Array Minimum(const Array& x1, const Array& x2) {
     return internal::BroadcastBinary(&MinimumImpl, x1, x2, dtype);  // x1 > x2 ? x2 : x1
 }
 
+Array Clip(const Array& x1, absl::optional<Scalar> a_min, absl::optional<Scalar> a_max) {
+  if (!a_min.has_value() && !a_max.has_value()) {
+    throw ChainerxError("Must set either a_min or a_max.");
+  }
+  Array tmp = a_min.has_value() ? Maximum(x1, *a_min) : x1;
+  Array out = a_max.has_value() ? Minimum(x1, *a_max) : tmp;
+  return out;
+}
+
 }  // namespace chainerx

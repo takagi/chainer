@@ -1,5 +1,7 @@
 #pragma once
 
+#include <absl/types/optional.h>
+
 #include "chainerx/array.h"
 #include "chainerx/scalar.h"
 
@@ -22,5 +24,7 @@ Array Maximum(const Array& x1, const Array& x2);
 Array Minimum(const Array& x1, Scalar x2);
 Array Minimum(Scalar x1, const Array& x2);
 Array Minimum(const Array& x1, const Array& x2);
+
+ Array Clip(const Array& x1, absl::optional<Scalar> a_min = absl::nullopt, absl::optional<Scalar> a_max = absl::nullopt);
 
 }  // namespace chainerx
